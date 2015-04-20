@@ -1,5 +1,5 @@
 \RequirePackage[l2tabu, orthodox]{nag}
-\documentclass[11pt,a4paper,titlepage,portrait,ngerman,final]{scrartcl}
+\documentclass[11pt,a4paper,titlepage,portrait,ngerman,final,bibliography=totocnumbered]{scrartcl}
 \pdfgentounicode=1
 \pdfcompresslevel=9
 
@@ -19,8 +19,11 @@
 	final=true
 ]{hyperref}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
-% INFO SECTION %
+
+%% INFO SECTION %%
 \def \docTitle{Titel}
 \def \docSubtitle{Subtitel}
 \def \docAuthor{\href{http://kije.ch}{kije}}
@@ -32,27 +35,38 @@
 	pdfauthor=\docAuthor,
 }
 
+
+
 % PACKAGES
+%Fonts
 %\usepackage[osf]{mathpazo} 
 \usepackage[default]{raleway}% Font
+%\usepackage[sfdefault]{cabin}
+%\usepackage{cmbright} \renewcommand*\familydefault{\sfdefault}
+%\usepackage[defaultsans]{droidsans} \renewcommand*\familydefault{\sfdefault}
+%\usepackage{tgadventor} \renewcommand*\familydefault{\sfdefault}
+%\usepackage[scaled]{helvet} \renewcommand*\familydefault{\sfdefault}
+%\usepackage[scaled]{uarial} \renewcommand*\familydefault{\sfdefault}
+
 \usepackage[pdftex]{graphicx}
 \usepackage{hfoldsty}
 \usepackage{thumbpdf}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage[ngerman]{babel}
 \usepackage{siunitx}
 \usepackage{cleveref}
 \usepackage{fancyhdr}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{ngerman}
-\usepackage[a4paper]{geometry}
+\usepackage[a4paper,left=2cm,right=2cm,top=6em,bottom=3em,headsep=4em,footskip=5em,includeheadfoot]{geometry}
 \usepackage[
 	activate=true,
 	babel=true,
 	kerning=all, 
 	tracking=all,
-	letterspace=90
+	letterspace=100
 ]{microtype}
 \usepackage{fixltx2e}
 \usepackage{currfile}
@@ -63,17 +77,40 @@
 \usepackage{bigfoot}
 \usepackage{lipsum}
 \usepackage[parfill]{parskip}
+\usepackage{quoting}
+\usepackage{pdfpages}
+% \usepackage{glossaries}
+\usepackage{setspace}
 
+% Biblio
+\usepackage[
+	citestyle=numeric,
+	natbib=true,
+	backend=bibtex,
+	url=true
+]{biblatex}
+%\addbibresource{references} % file
+
+
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+% Koma Styles
 \setkomafont{disposition}{\normalfont}
 \setkomafont{title}{\normalfont\bfseries\scshape\Huge}
 \setkomafont{subtitle}{\normalfont\scshape\bfseries\normalsize}
 \setkomafont{dictumauthor}{\normalfont\bfseries\small}
-\setkomafont{section}{\newpage\normalfont\scshape\LARGE}
+\setkomafont{section}{\normalfont\scshape\LARGE}
 \setkomafont{subsection}{\normalfont\bfseries\scshape\large}
 \setkomafont{subsubsection}{\normalfont\bfseries\normalsize}
 \setkomafont{descriptionlabel}{\normalfont\bfseries\small}
 
-
+% Document Setup
+\setcounter{secnumdepth}{3}
+\onehalfspacing   % 1 1/2 Zeilenabstand 
+%new page before section
+\let\stdsection\section
+\renewcommand\section{\clearpage\stdsection}
 
 % DOC INFO 
 \title{\docTitle}
@@ -81,7 +118,7 @@
 \author{\large\scshape\docAuthor}
 \date{\normalsize\scshape\docDate}
 
-% HEADER & FOOTER
+%% HEADER & FOOTER
 \pagestyle{fancy}
 \lhead{\docTitle}
 \chead{\textbf{\leftmark}}
@@ -93,16 +130,15 @@
 
 % Make German ;)
 \renewcommand{\figurename}{Abbildung}
+%\DefineBibliographyStrings{ngerman}{references = {Works Cited}}
 
 \begin{document}
 \maketitle
 \newpage
 \tableofcontents
 \newpage
-
 % % % % % % % % % % % %
 %% CONTENT GOES HERE %% 
 % % % % % % % % % % % %
-
 
 \end{document}
