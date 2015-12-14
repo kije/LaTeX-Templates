@@ -1,10 +1,9 @@
 \RequirePackage[l2tabu, orthodox]{nag}
-\documentclass[11pt,a4paper,titlepage,portrait,ngerman,final,bibliography=totocnumbered]{scrartcl}
+\documentclass[12pt,a4paper,titlepage,portrait,ngerman,bibliography=totocnumbered,glossaries=totocnumbered,listof=totocnumbered]{scrartcl}
 \pdfgentounicode=1
 \pdfcompresslevel=9
 
 \RequirePackage[
-	pdftex,
 	plainpages=true,
 	breaklinks=true,
 	colorlinks=false,
@@ -15,8 +14,7 @@
 	pdfborder={0 0 0},
 	hidelinks=true,
 	pdfpagetransition=Dissolve,
-	pdfdisplaydoctitle=true,
-	final=true
+	pdfdisplaydoctitle=true
 ]{hyperref}
 
 \usepackage[utf8]{inputenc}
@@ -24,9 +22,10 @@
 
 
 %% INFO SECTION %%
-\def \docTitle{Titel}
-\def \docSubtitle{Subtitel}
-\def \docAuthor{\href{http://kije.ch}{kije}}
+\def \docSubject{Subject}
+\def \docTitle{Title}
+\def \docSubtitle{Subtitle}
+\def \docAuthor{ Author }
 \def \docDate{\today}
 
 \hypersetup{
@@ -48,19 +47,14 @@
 %\usepackage[scaled]{helvet} \renewcommand*\familydefault{\sfdefault}
 %\usepackage[scaled]{uarial} \renewcommand*\familydefault{\sfdefault}
 
-\usepackage[pdftex]{graphicx}
-\usepackage{hfoldsty}
-\usepackage{thumbpdf}
+\usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[ngerman]{babel}
-\usepackage{siunitx}
 \usepackage{cleveref}
 \usepackage{fancyhdr}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[a4paper,left=2cm,right=2cm,top=6em,bottom=3em,headsep=4em,footskip=5em,includeheadfoot]{geometry}
+\usepackage[a4paper,left=2.3cm,right=2.3cm,top=6em,bottom=3em,headsep=4.2em,footskip=5em,includeheadfoot]{geometry}
 \usepackage[
 	activate=true,
 	babel=true,
@@ -68,19 +62,20 @@
 	tracking=all,
 	letterspace=100
 ]{microtype}
-\usepackage{fixltx2e}
-\usepackage{currfile}
 \usepackage{caption}
-\usepackage{xcolor}
+\usepackage[dvinames]{xcolor}
 \usepackage{lastpage}
 \usepackage{ellipsis}
 \usepackage{bigfoot}
-\usepackage{lipsum}
 \usepackage[parfill]{parskip}
 \usepackage{quoting}
-\usepackage{pdfpages}
-% \usepackage{glossaries}
+%\usepackage{pdfpages}
+\usepackage[toc,acronym,xindy,numberedsection]{glossaries}
 \usepackage{setspace}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{titlesec}
 
 % quotation style
 \usepackage[autostyle=true,german=swiss]{csquotes}
@@ -88,12 +83,17 @@
 \MakeOuterQuote{"}
 
 % Biblio
-\usepackage[
-	citestyle=numeric,
-	natbib=true,
-	backend=bibtex,
-	url=true
-]{biblatex}
+%\usepackage[
+%citestyle=numeric,
+%natbib=true,
+%backend=bibtex,
+%url=true,
+%doi=true,
+%eprint=false,
+%sorting=none,
+%hyperref=true,
+%backref=true
+%]{biblatex}
 %\addbibresource{references} % file
 
 
@@ -111,31 +111,51 @@
 \setkomafont{descriptionlabel}{\normalfont\bfseries\small}
 
 % Document Setup
-\setcounter{secnumdepth}{3}
+\setcounter{secnumdepth}{4}
 \onehalfspacing   % 1 1/2 Zeilenabstand 
 %new page before section
 \let\stdsection\section
 \renewcommand\section{\clearpage\stdsection}
 
 % DOC INFO 
+\subject{\docSubject}
 \title{\docTitle}
 \subtitle{\docSubtitle}
-\author{\large\scshape\docAuthor}
-\date{\normalsize\scshape\docDate}
+\author{\docAuthor}
+\date{\docDate}
+%\publishers{}
 
 %% HEADER & FOOTER
 \pagestyle{fancy}
-\lhead{\docTitle}
-\chead{\textbf{\leftmark}}
-\rhead{\docSubtitle}
-\lfoot{\currfilename}
-\cfoot{\textbf{\docAuthor}}
-\rfoot{Seite \thepage\ von \pageref*{LastPage} }
+\lhead{\docSubject \\ {\footnotesize \docTitle}}
+\chead{\centering{\textbf{\leftmark} \\}}
+\rhead{\docSubtitle \\}
+\lfoot{\small{\jobname.tex}}
+\cfoot{\centering\small{\docAuthor}}
+\rfoot{\small{Seite \thepage\ von \pageref*{LastPage}}}
 
 
 % Make German ;)
 \renewcommand{\figurename}{Abbildung}
-%\DefineBibliographyStrings{ngerman}{references = {Works Cited}}
+%\DefineBibliographyStrings{ngerman}{references = {Quellen}}
+
+% setup glossaries
+\makeindex
+\makeglossaries
+\glossarystyle{altlistgroup}
+%\loadglsentries[main]{glossary} % file
+\setglossarysection{section}
+
+% table setup
+\renewcommand{\arraystretch}{1.3}
+
+% title setup
+% Spacing before/after reduced by 1ex each
+\titlespacing*{\section} {0pt}{2.5ex plus 1ex minus .2ex}{1.3ex plus .2ex}
+\titlespacing*{\subsection} {0pt}{2.25ex plus 1ex minus .2ex}{0.5ex plus .2ex}
+\titlespacing*{\subsubsection} {0pt}{1.6ex plus 0.8ex minus .2ex}{0.1ex plus .1ex}
+\titlespacing*{\paragraph}    {0pt}{1.4ex plus 0.7ex minus .2ex}{3ex}
+\titlespacing*{\subparagraph} {0pt}{1.2ex plus 0.8ex minus .2ex}{3ex}
 
 \begin{document}
 \maketitle
